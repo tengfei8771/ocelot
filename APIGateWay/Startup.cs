@@ -33,7 +33,7 @@ namespace APIGateWay
         {
             var config = new ConfigurationBuilder().AddJsonFile("ocelot.json").Build();
             services.AddControllers();
-            service.Configure<ConsulServiceOptions>(config);
+            services.Configure<ConsulServiceOptions>(config);
             services.AddOcelot(config)
                 .AddCacheManager(x =>
                 {
@@ -50,8 +50,7 @@ namespace APIGateWay
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseOcelot().Wait();
+           
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -62,6 +61,7 @@ namespace APIGateWay
             {
                 endpoints.MapControllers();
             });
+            app.UseOcelot().Wait();
         }
     }
 }
