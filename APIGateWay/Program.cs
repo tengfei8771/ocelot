@@ -22,5 +22,9 @@ namespace APIGateWay
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+                //.ConfigureAppConfiguration((hostingContext, builder) =>
+                //{
+                //    builder.AddJsonFile("ocelot.json", false, true);
+                //});
     }
 }

@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -41,6 +42,10 @@ namespace APIGateWay
                 })
                 .AddConsul()
                 .AddPolly();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("ApiGateway", new OpenApiInfo { Title = "网关服务", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,18 +55,31 @@ namespace APIGateWay
             {
                 app.UseDeveloperExceptionPage();
             }
-           
-            app.UseHttpsRedirection();
+            
+            //https重定向中间件
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
+            //app.UseAuthorization();
+            Dictionary<string, string> NameAndPath = new Dictionary<string, string>()
+            {
+                {"PublicWebApi",$"/swagger/v1/swagger.json" }
+            };
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+            app.UseSwagger()
+                .UseSwaggerUI(options =>
+                {
+                    foreach(var item in NameAndPath)
+                    {
+                        options.SwaggerEndpoint(item.Value,item.Key);
+                    } 
+                }); 
             app.UseOcelot().Wait();
+
         }
     }
 }
