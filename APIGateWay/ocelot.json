@@ -12,17 +12,18 @@
       "UpstreamPathTemplate": "/app/{path}",
       "UpstreamHttpMethod": [ "Get", "Post" ]
     },
-    {
-      "DownstreamPathTemplate": "/swagger/v1/swagger.json",
+    { //swagger≈‰÷√–≈œ¢
+      "DownstreamPathTemplate": "/PublicWebApi/swagger.json",
       "DownstreamScheme": "http",
+      "UseServicesDiscovery": true,
+      "UpstreamPathTemplate": "/PublicWebApi/swagger.json",
+      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
       "DownstreamHostAndPorts": [
         {
           "Host": "localhost",
-          "Port": 6066
+          "Port": 5000
         }
-      ],
-      "UpstreamPathTemplate": "/swagger/{path}",
-      "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ]
+      ]
     }
   ]
 }

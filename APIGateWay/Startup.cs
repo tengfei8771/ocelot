@@ -62,9 +62,9 @@ namespace APIGateWay
             app.UseRouting();
 
             //app.UseAuthorization();
-            Dictionary<string, string> NameAndPath = new Dictionary<string, string>()
+            List<string> Names = new List<string>()
             {
-                {"PublicWebApi",$"/swagger/v1/swagger.json" }
+                {"PublicWebApi"}
             };
             app.UseEndpoints(endpoints =>
             {
@@ -73,10 +73,10 @@ namespace APIGateWay
             app.UseSwagger()
                 .UseSwaggerUI(options =>
                 {
-                    foreach(var item in NameAndPath)
+                    Names.ForEach(m =>
                     {
-                        options.SwaggerEndpoint(item.Value,item.Key);
-                    } 
+                        options.SwaggerEndpoint($"/{m}/swagger.json", m);
+                    });
                 }); 
             app.UseOcelot().Wait();
 
