@@ -16,7 +16,7 @@
       "DownstreamPathTemplate": "/swagger/PublicWebApi/swagger.json",
       "DownstreamScheme": "https",
       "UseServicesDiscovery": true,
-      "UpstreamPathTemplate": "/PublicWebApi/swagger.json",
+      "UpstreamPathTemplate": "/PublicWebApi/swagger.json1",
       "UpstreamHttpMethod": [ "GET", "POST", "DELETE", "PUT" ],
       "DownstreamHostAndPorts": [
         {
